@@ -19,7 +19,7 @@ angular.module('cutepApp')
 
     $scope.init = function(){
         // get all vocab
-        $http.get('http://localhost/cutep/api.php?action=getAllVocab').
+        $http.get('http://localhost/vocab-exam/api.php?action=getAllVocab').
           success(function(data, status, headers, config) {            
             $scope.AllVocab = data;
             $scope.remainQuestion = angular.copy(data);                            
@@ -28,18 +28,18 @@ angular.module('cutepApp')
             $scope.generateQuestion();
             // set first choice
             $scope.generateChoice(); 
-        });           
+        });          
         
-    }
+    };
 
     $scope.authen = function(uname){
     	$scope.authenName = true;    	
     	$scope.uname = uname;
-    }
+    };
 
     $scope.checkAnswer = function(answerId){        
         // right answer
-        if($scope.question.id == answerId) {
+        if($scope.question.id === answerId) {
             if($scope.remainQuestion.length > 0){                            
                 // set question
                 $scope.generateQuestion();
@@ -57,22 +57,22 @@ angular.module('cutepApp')
         }else{
 
             // sent score log to api
-            // Follow this********************************
+            // 
 
             // show score and Start Again button           
             SweetAlert.swal({   
-                title: "Score : <span class='cl-green'>"+$scope.score+"</span> / 100",   
-                text: "Right answer is <strong>"+$scope.question.name_th+" ("+$scope.question.name_eng+")</strong>",   
-                type: "error",                 
+                title: 'Score : <span class="cl-green">'+$scope.score+'</span> / 100',   
+                text: 'Right answer is <strong>'+$scope.question.name_th+' = '+$scope.question.name_eng+'</strong>',   
+                type: 'error',                 
                 html: true,  
-                confirmButtonColor: "#DD6B55",   
-                confirmButtonText: "Play Again"
+                confirmButtonColor: '#DD6B55',   
+                confirmButtonText: 'Play Again'
             }, function(){                   
                 // call reset vocab
                 $scope.resetVocab();
             });
         }
-    }
+    };
     
     $scope.generateQuestion = function() {
         // random question
@@ -87,7 +87,7 @@ angular.module('cutepApp')
         
         // remove vocab from remainQuestion
         $scope.remainQuestion.splice(rundomId, 1);        
-    }
+    };
 
     $scope.generateChoice = function() {
         // Ramdom add more 3 choices but no dulplicate first choice.
@@ -98,7 +98,7 @@ angular.module('cutepApp')
         while(count < 4){
             var rundomId = $scope.rundomId($scope.AllVocab.length);
            
-            if (choiceTH.indexOf($scope.AllVocab[rundomId].name_th) == -1) {
+            if (choiceTH.indexOf($scope.AllVocab[rundomId].name_th) === -1) {
                                 
                 // add choice
                 $scope.choices.push($scope.AllVocab[rundomId]);
@@ -108,11 +108,11 @@ angular.module('cutepApp')
                 count++;
             }
         }        
-    }
+    };
 
     $scope.rundomId = function(lengthNumber) {
         return Math.floor(Math.random()*lengthNumber);
-    }
+    };
 
     $scope.resetVocab = function() {
         $scope.remainQuestion = angular.copy($scope.AllVocab);   
@@ -122,7 +122,7 @@ angular.module('cutepApp')
         $scope.generateQuestion();
         // set choice
         $scope.generateChoice(); 
-    }
+    };
     
     $scope.init();
 
