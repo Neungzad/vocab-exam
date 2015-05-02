@@ -1,0 +1,43 @@
+<div class="row login">
+	<div class="col-xs-12">
+		
+		<div ng-switch on="authenName">
+			<!-- login form -->
+			<div ng-switch-when="false">
+				<form>
+					<div class="form-group">
+						<label for="exampleInputEmail1">Your Name</label>
+						<input ng-model="uname" type="text" class="form-control" placeholder="Enter Name">
+					</div>							
+					<button ng-click="authen(uname)" type="submit" class="btn btn-success btn-block btn-default">Submit</button>
+				</form>
+			</div>
+			
+			<!-- Question form -->
+			<div ng-switch-when="true">
+				{{remainQuestion}}
+				<div class="row con-status">
+					<div class="col-xs-6">
+						<h4>Hello, {{ uname }}</h4>			
+					</div>
+					<div class="col-xs-6" align="right">
+						<h4>Score : <span class="cl-green">{{score}}</span> / 400</h4>	
+					</div>
+				</div>		
+
+				<h3 class="text-center">{{question.name_eng}}</h3>
+								
+				<ul class="con-choice">
+					<li ng-repeat="choice in choices">
+						<div class="btn btn-block btn-default"
+							 ng-click="checkAnswer(choice.id)">
+							{{choice.name_th}}
+						</div>
+					</li>
+				</ul>
+
+			</div>			
+		</div>
+
+	</div>  	
+</div>
