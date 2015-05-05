@@ -18,6 +18,9 @@ angular
     'ngTouch',
     'oitozero.ngSweetAlert'
   ])
+  .constant("appConfig", {
+        "url": "http://localhost"       
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

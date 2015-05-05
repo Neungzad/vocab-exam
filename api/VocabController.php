@@ -7,10 +7,51 @@ class VocabController
      *
      * @url GET /
      */
-    public function kak()
+    public function getAllVocab()
     {
-        $db = Database::connect();
+        $resultArray = array();
 
-        return $db;
+        $conn = Database::connect(); 
+
+        $sql = "SELECT * FROM vocabulary";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {            
+            while($row = $result->fetch_assoc()) {          
+                $resultArray[] = array(
+                    'id'=>$row['id'],
+                    'name_th'=>$row['name_th'],
+                    'name_eng'=>$row['name_eng']
+                    );
+            }       
+        } 
+
+        return $resultArray;
     }   
+
+    /**    
+    * Save score
+    *
+    * @url POST /save
+    */
+    public function saveScore()
+    {
+        $conn = Database::connect(); 
+
+        $sql = "INSERT INTO score SET
+                username = '".$_POST['username']."', 
+                score = '".$_POST['score']."',
+                vocab_id_wrong = '".$_POST['vocab_id_wrong']."',
+                create_time = '".date('Y-m-d H:i:s')."'";
+        $resultQuery = $conn->query($sql);
+
+        if($resultQuery){
+            $result = array("status" => "Success, score saved.");
+        }else{
+            $result = array("status" => "Fail, can't save score.");
+        }
+
+        return $result;
+    }
+
 }

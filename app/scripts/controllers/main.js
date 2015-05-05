@@ -8,9 +8,9 @@
  * Controller of the cutepApp
  */
 angular.module('cutepApp')
-  .controller('MainCtrl', function ($scope, $http, SweetAlert) {
+  .controller('MainCtrl', function ($scope, $http, SweetAlert, appConfig) {
     
-    $scope.authenName = true;
+    $scope.authenName = false;
     $scope.score = 0;
     $scope.AllVocab = [];
     $scope.remainQuestion = [];
@@ -19,7 +19,7 @@ angular.module('cutepApp')
 
     $scope.init = function(){
         // get all vocab
-        $http.get('http://localhost/vocab-exam/api.php?action=getAllVocab').
+        $http.get(appConfig.url+'/vocab-exam/api/vocabs').
           success(function(data, status, headers, config) {            
             $scope.AllVocab = data;
             $scope.remainQuestion = angular.copy(data);                            
@@ -32,32 +32,60 @@ angular.module('cutepApp')
         
     };
 
-    $scope.authen = function(uname){
-    	$scope.authenName = true;    	
-    	$scope.uname = uname;
+    $scope.authen = function(uname){        
+        if (uname !== undefined) {
+            $scope.authenName = true;       
+            $scope.uname = uname;
+        }else{
+            alert('Enter your ninja name ;)');
+        }    	
     };
 
     $scope.checkAnswer = function(answerId){        
         // right answer
         if($scope.question.id === answerId) {
+            
+            $scope.score++;   
+
             if($scope.remainQuestion.length > 0){                            
                 // set question
                 $scope.generateQuestion();
                 // set choice
-                $scope.generateChoice();         
+                $scope.generateChoice();                         
+            }else{               
+                // sent score log to api                
+                $.post(appConfig.url+'/vocab-exam/api/vocabs/save', {
+                    username : $scope.uname,
+                    score : $scope.score,
+                    vocab_id_wrong : null 
+                }, function(data){
+                    console.log(data.status);
+                }); 
 
-                $scope.score++;   
-            }else{
-                alert('You are Awesome !!!, SUPER MAN.');
-                // sent score log to api 
-
-                // reset vocab
+                // Clear Mission Start Again button           
+                SweetAlert.swal({   
+                    title: 'You are Awesomeeeee !',
+                    text: 'Keep going forward.',                     
+                    type: 'success',                 
+                    html: true,  
+                    confirmButtonColor: '#A5DC86',   
+                    confirmButtonText: 'Play Again'
+                }, function(){                   
+                    // call reset vocab
+                    $scope.resetVocab();
+                });
             }
         // wrong answer    
         }else{
 
-            // sent score log to api
-            // 
+            // sent score log to api           
+            $.post(appConfig.url+'/vocab-exam/api/vocabs/save', {
+                username : $scope.uname,
+                score : $scope.score,
+                vocab_id_wrong : $scope.question.id  
+            }, function(data){
+                console.log(data.status);
+            });
 
             // show score and Start Again button           
             SweetAlert.swal({   
@@ -107,12 +135,34 @@ angular.module('cutepApp')
                 choiceTH.push($scope.AllVocab[rundomId].name_th);
                 count++;
             }
-        }        
+        }    
+
+        // random choice
+        $scope.choices = $scope.shuffle($scope.choices);
     };
 
     $scope.rundomId = function(lengthNumber) {
         return Math.floor(Math.random()*lengthNumber);
     };
+
+    $scope.shuffle = function(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex ;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
 
     $scope.resetVocab = function() {
         $scope.remainQuestion = angular.copy($scope.AllVocab);   
