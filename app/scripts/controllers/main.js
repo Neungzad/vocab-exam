@@ -8,7 +8,7 @@
  * Controller of the cutepApp
  */
 angular.module('cutepApp')
-  .controller('MainCtrl', function ($scope, $http, SweetAlert, appConfig) {
+  .controller('MainCtrl', function ($scope, $http, $cookies, SweetAlert, appConfig) {
     
     $scope.authenName = false;
     $scope.score = 0;
@@ -16,6 +16,7 @@ angular.module('cutepApp')
     $scope.remainQuestion = [];
     $scope.question = {};
     $scope.choices = [];
+    $scope.uname = $cookies.usernameRemember;
 
     $scope.init = function(){
         // get all vocab
@@ -36,6 +37,7 @@ angular.module('cutepApp')
         if (uname !== undefined) {
             $scope.authenName = true;       
             $scope.uname = uname;
+            $cookies.usernameRemember = uname;
         }else{
             alert('Enter your ninja name ;)');
         }    	
