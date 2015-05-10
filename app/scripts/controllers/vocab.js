@@ -8,10 +8,22 @@
  * Controller of the cutepApp
  */
 angular.module('cutepApp')
-  .controller('VocabCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('VocabCtrl', function ($scope, $http, appConfig) {
+    
+    $scope.allVocabList = [];
+
+    $scope.init = function(){
+        // get all vocab
+        $http.get(appConfig.url+'/vocab-exam/api/vocabs/list').
+          success(function(data) {            
+            $scope.allVocabList = data;            
+        });   
+
+        // Active menu
+        $('.nav li').removeClass('active');          
+        $('#menu_vocab').addClass('active');              
+    };
+
+    $scope.init();
+
   });

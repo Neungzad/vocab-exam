@@ -1,1 +1,13 @@
-<p>This is the about view.</p>
+<div class="container-vb" align="center">
+	
+	<h4 class="title">Vocabulary Tone</h4>
+	<p class="subtitle">สรุปคำศัพท์เกี่ยวกับเรื่องของ Tone คำศัพท์</p>
+	
+	<div class="vocab-box" ng-repeat="(key, vocabs) in allVocabList">
+		<h3 class="vocab-title">{{key}}</h3>
+		<ul class="meaning-box">
+			<li ng-repeat="vocab in vocabs">{{vocab}}</li>					
+		</ul>
+	</div>
+
+</div>

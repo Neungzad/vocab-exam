@@ -29,8 +29,11 @@ angular.module('cutepApp')
             $scope.generateQuestion();
             // set first choice
             $scope.generateChoice(); 
-        });          
-        
+        });
+
+        // Active menu
+        $('.nav li').removeClass('active');          
+        $('#menu_main').addClass('active');
     };
 
     $scope.authen = function(uname){        

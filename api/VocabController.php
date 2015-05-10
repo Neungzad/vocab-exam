@@ -27,7 +27,30 @@ class VocabController
         } 
 
         return $resultArray;
-    }   
+    }
+
+    /**
+     * Get all vocabulary [Format List]
+     *
+     * @url GET /list
+     */
+    public function getAllVocabList()
+    {
+        $resultArray = array();
+
+        $conn = Database::connect(); 
+
+        $sql = "SELECT * FROM vocabulary ORDER BY name_th";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {            
+            while($row = $result->fetch_assoc()) {
+                $resultArray[$row['name_th']][] = $row['name_eng'];                
+            }       
+        } 
+
+        return $resultArray;
+    }    
 
     /**    
     * Save score

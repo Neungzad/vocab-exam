@@ -14,6 +14,8 @@ class Database
 
 	public static function connect()
 	{
+		date_default_timezone_set('Asia/Bangkok');
+		
 		$servername = Database::SERVER_NAME;
 		$username = Database::USER_NAME;
 		$password = Database::PASSWORD;

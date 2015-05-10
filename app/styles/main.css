@@ -3,6 +3,9 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+.container-narrow > hr {
+  margin: 30px 0;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -65,15 +68,50 @@ body {
   background-color: #337AB7;
 }
 
+
+/* Vaocabulary page */
+.container-vb {
+  margin: 20px 0;
+}
+.container-vb .title {
+  color: #666;
+}
+.container-vb .subtitle {
+  color: #C2C2C2;
+  margin-bottom: 24px;
+}
+.container-vb .vocab-box {
+  color: #666;
+  background: #EFEFEF;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
+  border-radius: 6px;
+}
+.container-vb .vocab-box .vocab-title {
+  font-size: 20px;
+  border-bottom: 1px solid #E5E4E4;  
+  padding: 11px 0;
+  margin-bottom: 6px;
+  color: #333;
+  margin-top: 15px;
+}
+.container-vb .vocab-box .meaning-box{
+  list-style-type: none;
+  padding-left: 0;
+}
+.container-vb .vocab-box .meaning-box li{
+  font-size: 18px;
+  padding-bottom: 6px;
+}
+
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
     max-width: 730px;
   }
 }
-.container-narrow > hr {
-  margin: 30px 0;
-}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
