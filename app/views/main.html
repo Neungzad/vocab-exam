@@ -6,10 +6,10 @@
 			<div ng-switch-when="false">
 				<form>
 					<div class="form-group">
-						<label for="exampleInputEmail1">Your Name</label>
-						<input ng-model="uname" type="text" class="form-control" placeholder="Enter Name">
+						<label class="login-text" for="exampleInputEmail1">Your Name</label>
+						<input ng-model="uname" type="text" class="form-control login-input" placeholder="Enter Name">
 					</div>							
-					<button ng-click="authen(uname)" type="submit" class="btn btn-success btn-block btn-default">Submit</button>
+					<button ng-click="authen(uname)" type="submit" class="btn btn-success btn-block btn-default login-btn">Submit</button>
 				</form>
 			</div>
 			
@@ -21,7 +21,7 @@
 						<h4>Hello, {{ uname }}</h4>			
 					</div>
 					<div class="col-xs-6" align="right">
-						<h4>Score : <span class="cl-green">{{score}}</span> / 400</h4>	
+						<h4>Score : <span class="cl-green">{{score}}</span> / {{ numberAllVocab }}</h4>	
 					</div>
 				</div>		
 

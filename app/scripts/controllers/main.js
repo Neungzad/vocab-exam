@@ -17,13 +17,15 @@ angular.module('cutepApp')
     $scope.question = {};
     $scope.choices = [];
     $scope.uname = $cookies.usernameRemember;
+    $scope.numberAllVocab = 0;
 
     $scope.init = function(){
         // get all vocab
-        $http.get(appConfig.url+'/vocab-exam/api/vocabs').
+        $http.get(appConfig.url+'/api/vocabs').
           success(function(data, status, headers, config) {            
             $scope.AllVocab = data;
-            $scope.remainQuestion = angular.copy(data);                            
+            $scope.remainQuestion = angular.copy(data);
+            $scope.numberAllVocab = data.length;                            
 
             // set first question
             $scope.generateQuestion();
@@ -59,7 +61,7 @@ angular.module('cutepApp')
                 $scope.generateChoice();                         
             }else{               
                 // sent score log to api                
-                $.post(appConfig.url+'/vocab-exam/api/vocabs/save', {
+                $.post(appConfig.url+'/api/vocabs/save', {
                     username : $scope.uname,
                     score : $scope.score,
                     vocab_id_wrong : null 
@@ -84,7 +86,7 @@ angular.module('cutepApp')
         }else{
 
             // sent score log to api           
-            $.post(appConfig.url+'/vocab-exam/api/vocabs/save', {
+            $.post(appConfig.url+'/api/vocabs/save', {
                 username : $scope.uname,
                 score : $scope.score,
                 vocab_id_wrong : $scope.question.id  

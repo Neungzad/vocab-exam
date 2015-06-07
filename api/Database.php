@@ -9,7 +9,7 @@ class Database
 	const USER_NAME = "root";
 	const PASSWORD = "root";
 	const DB_NAME = "cu_tep";
-
+	
 	function __construct() {}
 
 	public static function connect()

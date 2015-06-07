@@ -13,7 +13,7 @@ class VocabController
 
         $conn = Database::connect(); 
 
-        $sql = "SELECT * FROM vocabulary";
+        $sql = "SELECT * FROM vbr_vocabulary";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {            
@@ -40,7 +40,7 @@ class VocabController
 
         $conn = Database::connect(); 
 
-        $sql = "SELECT * FROM vocabulary ORDER BY name_th";
+        $sql = "SELECT * FROM vbr_vocabulary ORDER BY name_th";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {            
@@ -61,7 +61,7 @@ class VocabController
     {
         $conn = Database::connect(); 
 
-        $sql = "INSERT INTO score SET
+        $sql = "INSERT INTO vbr_score SET
                 username = '".$_POST['username']."', 
                 score = '".$_POST['score']."',
                 vocab_id_wrong = '".$_POST['vocab_id_wrong']."',
