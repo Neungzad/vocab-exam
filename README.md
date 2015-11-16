@@ -9,7 +9,7 @@ Config Database
 
 Config Path
 
-Backgroup 
+Background
  - Yeoman 
  - php api
  - ionic 
